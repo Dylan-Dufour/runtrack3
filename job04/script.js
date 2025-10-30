@@ -1,15 +1,20 @@
-function bisextile(annee) {
-    // Une année est bissextile si elle est divisible par 4 mais pas par 100,
-    // sauf si elle est aussi divisible par 400
-    if ((annee % 4 === 0 && annee % 100 !== 0) || (annee % 400 === 0)) { // Condition pour une année bissextile
-        return true; // Retourne true si l'année est bissextile
-    } else {
-        return false; // Retourne false sinon
-    }
-}
+// Attendre que le DOM soit complètement chargé
+document.addEventListener("DOMContentLoaded", function() {
+    // Récupérer le textarea
+    const keylogger = document.getElementById("keylogger");
 
-// Exemple d'utilisation dans la console
-console.log(bisextile(2020)); // true
-console.log(bisextile(1900)); // false
-console.log(bisextile(2000)); // true
-console.log(bisextile(2023)); // false
+    // Ajouter un écouteur d'événement sur tout le document
+    document.addEventListener("keypress", function(event) {
+        // Vérifier si c'est une lettre de a à z (minuscule ou majuscule)
+        if (/^[a-zA-Z]$/.test(event.key)) {
+            // Si le focus est dans le textarea, ajouter la lettre deux fois
+            if (document.activeElement === keylogger) {
+                keylogger.value += event.key + event.key;
+            }
+            // Sinon, ajouter la lettre une seule fois
+            else {
+                keylogger.value += event.key;
+            }
+        }
+    });
+});
