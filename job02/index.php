@@ -6,6 +6,6 @@
     <script src="script.js"></script>
 </head>
 <body>
-    
+    <button id="button" onclick="showhide()">Afficher/Masquer</button>
 </body>
 </html>
