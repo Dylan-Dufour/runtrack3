@@ -1,0 +1,109 @@
+{
+  "pokemon": [
+    {
+      "id": "1",
+      "nom": "Bulbizarre",
+      "type": "Plante"
+    },
+    {
+      "id": "4",
+      "nom": "Salamèche",
+      "type": "Feu"
+    },
+    {
+      "id": "7",
+      "nom": "Carapuce",
+      "type": "Eau"
+    },
+    {
+      "id": "25",
+      "nom": "Pikachu",
+      "type": "Électrik"
+    },
+    {
+      "id": "143",
+      "nom": "Ronflex",
+      "type": "Normal"
+    },
+    {
+      "id": "149",
+      "nom": "Dracolosse",
+      "type": "Dragon"
+    },
+    {
+      "id": "150",
+      "nom": "Mewtwo",
+      "type": "Psy"
+    },
+    {
+      "id": "6",
+      "nom": "Dracaufeu",
+      "type": "Feu"
+    },
+    {
+      "id": "9",
+      "nom": "Tortank",
+      "type": "Eau"
+    },
+    {
+      "id": "151",
+      "nom": "Mew",
+      "type": "Psy"
+    },
+    {
+      "id": "94",
+      "nom": "Gengar",
+      "type": "Spectre"
+    },
+    {
+      "id": "130",
+      "nom": "Lokhlass",
+      "type": "Eau"
+    },
+    {
+      "id": "65",
+      "nom": "Alakazam",
+      "type": "Psy"
+    },
+    {
+      "id": "12",
+      "nom": "Papilusion",
+      "type": "Insecte"
+    },
+    {
+      "id": "37",
+      "nom": "Vulnona",
+      "type": "Feu"
+    },
+    {
+      "id": "52",
+      "nom": "Médhyèna",
+      "type": "Ténèbres"
+    },
+    {
+      "id": "19",
+      "nom": "Roucarnage",
+      "type": "Vol"
+    },
+    {
+      "id": "26",
+      "nom": "Raichu",
+      "type": "Électrik"
+    },
+    {
+      "id": 115,
+      "nom": "Kangourex",
+      "type": "Normal"
+    },
+    {
+      "id": "95",
+      "nom": "Onix",
+      "type": "Roche"
+    },
+    {
+      "id": "21",
+      "nom": "Racaillou",
+      "type": "Roche"
+    }
+  ]
+}

@@ -2,26 +2,133 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Taquin — La Plateforme_</title>
-  <link rel="stylesheet" href="style.css">
-  <img src="assets/img/1.PNG" alt="photo de la plateforme_" style="display:none;">
-  <img src="assets/img/2.PNG" alt="photo de la plateforme_" style="display:none;">
+  <title>Filtrage Pokémon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .pokemon-form {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin: 10px 0;
+    }
+    .pokemon-list {
+      margin-top: 20px;
+    }
+    .pokemon-card {
+      border: 1px solid #eee;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>Taquin — reconstituez le logo</h1>
-
-    <div class="controls">
-      <button id="restartBtn">Recommencer</button>
-      <div id="message" aria-live="polite"></div>
+  <div class="pokemon-form">
+    <div class="form-group">
+      <label for="pokemon-id">ID :</label>
+      <input type="text" id="pokemon-id" placeholder="Entrez un ID">
     </div>
+    <div class="form-group">
+      <label for="pokemon-nom">Nom :</label>
+      <input type="text" id="pokemon-nom" placeholder="Entrez un nom">
+    </div>
+    <div class="form-group">
+      <label for="pokemon-type">Type :</label>
+      <select id="pokemon-type">
+        <option value="">Tous les types</option>
+        <option value="Plante">Plante</option>
+        <option value="Feu">Feu</option>
+        <option value="Eau">Eau</option>
+        <option value="Électrik">Électrik</option>
+        <option value="Normal">Normal</option>
+        <option value="Dragon">Dragon</option>
+        <option value="Psy">Psy</option>
+      </select>
+    </div>
+    <input type="button" id="btn-filter" value="Filtrer">
+  </div>
+  <div id="pokemon-results" class="pokemon-list"></div>
 
-    <section id="puzzle" class="puzzle" aria-label="Taquin 3 par 3"></section>
+  <script>
+    /**
+     * Retourne la valeur associée à `key` dans la chaîne `jsonString`.
+     * Accepte des chaînes JSON strictes ou des objets JavaScript non stricts
+     * (ex : clés non entre guillemets). Retourne la valeur trouvée ou null.
+     * @param {string} jsonString
+     * @param {string} key
+     * @returns {any|null}
+     */
+    function jsonValueKey(jsonString, key) { // ---
+      if (typeof jsonString !== 'string') return null; // ---
+      let obj = null; // ---
+      try {
+        obj = JSON.parse(jsonString);
+      } catch (e) {
+        // Tenter de corriger un objet JS non strict en JSON valide
+        try {
+          let s = jsonString.trim();
+          // Remplacer les quotes simples par des doubles
+          s = s.replace(/'/g, '"');
+          // Ajouter des guillemets autour des clés non-quotées : { name: -> {"name":
+          s = s.replace(/([{,]\s*)([A-Za-z0-9_\-]+)\s*:/g, '$1"$2":');
+          obj = JSON.parse(s);
+        } catch (e2) {
+          console.error('Impossible de parser la chaîne JSON:', e2);
+          return null;
+        }
+      }
+      if (obj && Object.prototype.hasOwnProperty.call(obj, key)) return obj[key];
+      return null;
+    }
 
-    <p class="hint">Cliquez sur une tuile adjacente à la case vide pour la déplacer.</p>
-  </main>
+    // Bouton existant : fetch de expression.txt
+    document.getElementById('btn-filter').addEventListener('click', function() { //---
+      const id = document.getElementById('pokemon-id').value.trim(); //---
+      const nom = document.getElementById('pokemon-nom').value.trim().toLowerCase(); //---
+      const type = document.getElementById('pokemon-type').value;
+      const resultsDiv = document.getElementById('pokemon-results');
+      
+      fetch('pokemon.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Erreur réseau: ' + response.status);
+          return response.json();
+        })
+        .then(data => {
+          const filteredPokemon = data.pokemon.filter(pokemon => {
+            const matchId = !id || pokemon.id === id;
+            const matchNom = !nom || pokemon.nom.toLowerCase().includes(nom);
+            const matchType = !type || pokemon.type === type;
+            return matchId && matchNom && matchType;
+          });
 
-  <script src="script.js"></script>
+          resultsDiv.innerHTML = '';
+          if (filteredPokemon.length === 0) {
+            resultsDiv.innerHTML = '<p>Aucun Pokémon ne correspond à ces critères.</p>';
+            return;
+          }
+
+          filteredPokemon.forEach(pokemon => {
+            const card = document.createElement('div');
+            card.className = 'pokemon-card';
+            card.innerHTML = `
+              <strong>ID:</strong> ${pokemon.id}<br>
+              <strong>Nom:</strong> ${pokemon.nom}<br>
+              <strong>Type:</strong> ${pokemon.type}
+            `;
+            resultsDiv.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          resultsDiv.innerHTML = `<p>Erreur lors du chargement des Pokémon: ${err.message}</p>`;
+        });
+    });
+  </script>
+</body>
+</html>
+  </script>
 </body>
 </html>
