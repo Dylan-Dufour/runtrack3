@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arc-en-ciel - Jeu</title>
+    <style>
+        body{font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f0f4f8;color:#111}
+        .wrap{max-width:720px;margin:2rem auto;padding:1.25rem}
+        .controls{display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem}
+        button{padding:0.5rem 0.85rem;border:0;border-radius:6px;background:#0366d6;color:#fff;cursor:pointer}
+        button.secondary{background:#6c757d}
+        #board{display:flex;flex-direction:column;gap:6px;align-items:center}
+        .slot{width:90%;max-width:600px;height:60px;border:2px dashed #ddd;border-radius:6px;background:#fff;display:flex;align-items:center;padding:6px}
+        .slot.drag-over{border-color:#0366d6}
+        .piece{width:100%;height:100%;display:block;object-fit:cover;border-radius:4px;cursor:grab}
+        #result{margin-top:1rem;font-weight:700;text-align:center}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1 style="text-align:center">Reconstituez l'arc-en-ciel</h1>
+        <div class="controls">
+            <button id="shuffleBtn">Mélanger</button>
+            <button id="resetBtn" class="secondary">Remettre en ordre</button>
+        </div>
+
+        <div id="board" aria-label="Plateau de l'arc-en-ciel">
+            <!-- 6 emplacements pour les images -->
+            <div class="slot" data-index="0"></div>
+            <div class="slot" data-index="1"></div>
+            <div class="slot" data-index="2"></div>
+            <div class="slot" data-index="3"></div>
+            <div class="slot" data-index="4"></div>
+            <div class="slot" data-index="5"></div>
+        </div>
+
+        <div id="result" aria-live="polite"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
